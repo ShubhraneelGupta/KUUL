@@ -8,7 +8,7 @@ import {
 import Logo from '../Logo/Logo'
 
 export default function Header() {
-    return <div className="w-screen bg-zinc-800 text-white p-3 flex items-center justify-between
+    return <div className="w-full bg-zinc-800 text-white p-3 flex items-center justify-between
                             fixed top-0">
         <Logo/>
         <SignedOut>
