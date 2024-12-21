@@ -38,7 +38,7 @@ export default function Sidebar({buttons, handleLinkClick, sidebarState}: Sideba
                 <Link 
                 onClick={handleLinkClick}
                 href={button === 'Home' ? '/' : `${button.toLowerCase().split(' ').join('')}`} key={key} 
-                className="w-full p-6 hover:bg-[#9acd32] hover:text-black">
+                className="w-full p-6 hover:bg-[#9acd32] hover:text-black active:bg-white">
                 {button}
                 </Link>
                ))}
