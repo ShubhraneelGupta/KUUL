@@ -27,9 +27,13 @@ export default function Sidebar({buttons, handleLinkClick, sidebarState}: Sideba
             : ''}
         className="
         flex flex-col justify-center 
-        w-[50vw] h-screen fixed top-0 
+        w-1/2 h-screen fixed top-0 
         right-0 text-white bg-black
-        text-7xl">
+        text-7xl
+        
+        max-sm:w-screen
+        max-sm:text-3xl
+        ">
               {buttons.map((button, key) => (
                 <Link 
                 onClick={handleLinkClick}
@@ -37,7 +41,7 @@ export default function Sidebar({buttons, handleLinkClick, sidebarState}: Sideba
                 className="w-full p-6 hover:bg-[#9acd32] hover:text-black">
                 {button}
                 </Link>
-          ))}
+               ))}
         </motion.div>
     )
 }

@@ -1,10 +1,8 @@
 import Logo from '@/components/Logo/Logo';
-import Link from 'next/link';
 import Hamburger from '@/components/hamburger';
 import React from 'react';
 import Cross from './cross';
-import UserButtonSVG from '@/components/userButtonSVG';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import UserButtonMod from '@/components/userButtonMod';
 
 interface HeaderProps {
   buttons: ReadonlyArray<string>;
@@ -18,27 +16,7 @@ export default function Header({ buttons, handleSidebar, sidebarState }: HeaderP
       <div className="flex justify-between align-middle p-3">
         <Logo />
         <div className='flex items-center justify-center'>
-            <div>
-                <SignedIn>
-                    <div className='p-2 flex items-center'>
-                        <UserButton 
-                            appearance={{
-                                elements:{
-                                    userButtonBox: "w-14 h-14",
-                                    userButtonAvatarBox: "w-14 h-14"      
-                                }
-                            }}
-                        />
-                    </div>
-                </SignedIn>
-                <SignedOut>
-                    <SignInButton>
-                        <button>
-                            <UserButtonSVG/>
-                        </button>
-                    </SignInButton>
-                </SignedOut>
-            </div>
+            <UserButtonMod />
             <div>
               {!sidebarState ? <Hamburger handleSidebar={handleSidebar}/> : <Cross handleSidebar={handleSidebar}/>}
             </div>
