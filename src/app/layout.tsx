@@ -1,4 +1,10 @@
-import type { Metadata } from "next";
+'use client'
+
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import Sidebar from "@/components/sidebar";
+
+import {useState} from 'react'
 import localFont from "next/font/local";
 import {
   ClerkProvider,
@@ -17,11 +23,6 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "KUUL.club",
-  description: "Events and artists discovery",
-};
-
 
 
 export default function RootLayout({
@@ -29,11 +30,28 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const [sidebar, setSidebar] = useState(false)
+
+  const handleSidebar = () => {
+    setSidebar(!sidebar)
+  }
+
+  const handleLinkClick = () => {
+    setSidebar(!sidebar)
+  }
+
+  const buttons = ['Home', 'Events', 'Business', 'About Us', 'Sign Up']
+
   return (
     <ClerkProvider>
       <html lang="en">
         <body className="bg-black text-white">
+          <Header buttons={buttons} handleSidebar={handleSidebar} sidebarState={sidebar}/>
           {children}
+          <div>
+            {sidebar && <Sidebar buttons={buttons} handleLinkClick={handleLinkClick} sidebarState={sidebar}/>}
+          </div>
+          <Footer/>
         </body>
       </html>
     </ClerkProvider>

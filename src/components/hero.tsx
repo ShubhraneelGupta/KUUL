@@ -20,7 +20,7 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  return (<>
+  return (<div>
     <div
       className={clsx(
         "fixed inset-0 bg-cover bg-center z-[-1]")}
@@ -29,12 +29,12 @@ const Home = () => {
       }}
     ></div>
     <div className="fixed w-screen z-[-1] h-screen backdrop-blur-[5px]" />
-    <div className="flex p-24 justify-items-center items-center h-screen text-9xl">
-        Events. <br/>
-        Parties.<br/>
-        Nightlife. <br/>
+    <div className="flex flex-col p-24 justify-center h-screen text-9xl">
+        <div>Events.</div>
+        <div>Parties.</div>
+        <div>Nightlife.</div>
     </div>
-    </>
+    </div>
   );
 };
 
