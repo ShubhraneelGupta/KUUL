@@ -12,13 +12,11 @@ export default function Sidebar({buttons, handleLinkClick, sidebarState}: Sideba
         <motion.div 
         initial={sidebarState ? {
             x:1000,
-            opacity: 0
         } 
         : ''}
 
         animate={sidebarState ? {
             x:0,
-            opacity: 0.9,
             transition: {
                 type: 'spring',
                 bounce: 0.2,
@@ -28,8 +26,8 @@ export default function Sidebar({buttons, handleLinkClick, sidebarState}: Sideba
         className="
         flex flex-col justify-center 
         w-1/2 h-screen fixed top-0 
-        right-0 text-white bg-black
-        text-7xl
+        right-0 text-white bg-zinc-900 text-7xl
+        backdrop-blur bg-opacity-50
         
         max-sm:w-screen
         max-sm:text-3xl

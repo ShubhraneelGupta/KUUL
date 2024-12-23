@@ -3,7 +3,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Sidebar from "@/components/sidebar";
 
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import localFont from "next/font/local";
 import {
   ClerkProvider,
@@ -11,44 +11,50 @@ import {
 
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
-
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   const [sidebar, setSidebar] = useState(false)
+  const sideBarRef = useRef<HTMLDivElement>(null) 
+
+  const handleClickOutsideSidebar = (event: MouseEvent) => {
+    if (
+      sidebar && 
+      sideBarRef.current && 
+      !sideBarRef.current.contains(event.target as Node) 
+    ) {
+      setSidebar(false) 
+    }
+  }
 
   const handleSidebar = () => {
     setSidebar(!sidebar)
   }
 
   const handleLinkClick = () => {
-    setSidebar(!sidebar)
+    setSidebar(false) 
   }
 
   const buttons = ['Home', 'Events', 'Business', 'About Us', 'Sign Up']
 
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutsideSidebar)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideSidebar)
+    }
+  }, [sidebar])
 
   return (
     <ClerkProvider>
       <html lang="en">
+        <title>KUUL.club</title>
         <body className="bg-black text-white">
           <Header buttons={buttons} handleSidebar={handleSidebar} sidebarState={sidebar}/>
           {children}
-          <div>
+
+          <div ref={sideBarRef} className="absolute top-0 left-0">
             {sidebar && <Sidebar buttons={buttons} handleLinkClick={handleLinkClick} sidebarState={sidebar}/>}
           </div>
           <Footer/>

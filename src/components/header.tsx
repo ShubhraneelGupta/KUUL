@@ -3,6 +3,7 @@ import Hamburger from '@/components/hamburger';
 import React from 'react';
 import Cross from './cross';
 import UserButtonMod from '@/components/userButtonMod';
+import {motion} from 'motion/react'
 
 interface HeaderProps {
   buttons: ReadonlyArray<string>;
@@ -12,8 +13,18 @@ interface HeaderProps {
 
 export default function Header({ buttons, handleSidebar, sidebarState }: HeaderProps) {
   return (
-    <div className="z-10 fixed top-0 w-screen p-6">
-      <div className="flex justify-between align-middle p-3">
+    <motion.div 
+    initial={{
+      y:-100
+    }}
+    animate={{
+      y:0
+    }}
+    transition={{
+      delay: 1.25
+    }}
+    className="z-10 fixed top-0 w-screen">
+      <div className="flex justify-between items-center p-3">
         <Logo />
         <div className='flex items-center justify-center'>
             <UserButtonMod />
@@ -22,6 +33,6 @@ export default function Header({ buttons, handleSidebar, sidebarState }: HeaderP
             </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
