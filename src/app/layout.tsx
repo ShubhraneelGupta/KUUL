@@ -20,46 +20,46 @@ export default function RootLayout({
   const sideBarRef = useRef<HTMLDivElement>(null) 
 
   const handleClickOutsideSidebar = (event: MouseEvent) => {
-    if (
-      sidebar && 
-      sideBarRef.current && 
-      !sideBarRef.current.contains(event.target as Node) 
-    ) {
-      setSidebar(false) 
-    }
+	if (
+	  sidebar && 
+	  sideBarRef.current && 
+	  !sideBarRef.current.contains(event.target as Node) 
+	) {
+	  setSidebar(false) 
+	}
   }
 
   const handleSidebar = () => {
-    setSidebar(!sidebar)
+	setSidebar(!sidebar)
   }
 
   const handleLinkClick = () => {
-    setSidebar(false) 
+	setSidebar(false) 
   }
 
   const buttons = ['Home', 'Events', 'Business', 'About Us', 'Sign Up']
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutsideSidebar)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutsideSidebar)
-    }
+	document.addEventListener('mousedown', handleClickOutsideSidebar)
+	return () => {
+	  document.removeEventListener('mousedown', handleClickOutsideSidebar)
+	}
   }, [sidebar])
 
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <title>KUUL.club</title>
-        <body className={`bg-black text-white ${sidebar ? "overflow-hidden" : ""}`}>
-          <Header buttons={buttons} handleSidebar={handleSidebar} sidebarState={sidebar}/>
-          {children}
+	<ClerkProvider>
+	  <html lang="en">
+		<title>KUUL.club</title>
+		<body className={`bg-black text-white ${sidebar ? "overflow-hidden" : ""}`}>
+			<Header buttons={buttons} handleSidebar={handleSidebar} sidebarState={sidebar}/>
+			{children}
 
-          <div ref={sideBarRef} className="absolute top-0 left-0">
-            <Sidebar2 buttons={buttons} handleLinkClick={handleLinkClick} sidebarState={sidebar}/>
-          </div>
-          <Footer/>
-        </body>
-      </html>
-    </ClerkProvider>
+			<div ref={sideBarRef} className="absolute top-0 left-0">
+				<Sidebar2 buttons={buttons} handleLinkClick={handleLinkClick} sidebarState={sidebar}/>
+			</div>
+			<Footer/>
+		</body>
+	  </html>
+	</ClerkProvider>
   )
 }

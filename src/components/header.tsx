@@ -13,26 +13,26 @@ interface HeaderProps {
 
 export default function Header({ buttons, handleSidebar, sidebarState }: HeaderProps) {
   return (
-    <motion.div 
-    initial={{
-      y:-100
-    }}
-    animate={{
-      y:0
-    }}
-    transition={{
-      delay: 1.25
-    }}
-    className="z-10 fixed top-0 w-screen">
-      <div className="flex justify-between items-center p-3">
-        <Logo />
-        <div className='flex items-center justify-center'>
-            <UserButtonMod />
-            <div>
-              {!sidebarState ? <Hamburger handleSidebar={handleSidebar}/> : <Cross handleSidebar={handleSidebar}/>}
-            </div>
-        </div>
-      </div>
-    </motion.div>
+	<motion.div 
+	initial={{
+	  y:-100
+	}}
+	animate={{
+	  y:0
+	}}
+	transition={{
+	  delay: 1.25
+	}}
+	className="z-10 fixed top-0 w-screen">
+	  <div className="flex justify-between items-center p-3">
+		<Logo />
+		<div className='flex items-center justify-center'>
+			<UserButtonMod />
+			<div>
+			  {!sidebarState ? <Hamburger handleSidebar={handleSidebar}/> : <Cross handleSidebar={handleSidebar}/>}
+			</div>
+		</div>
+	  </div>
+	</motion.div>
   );
 }
