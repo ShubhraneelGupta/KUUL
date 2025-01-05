@@ -2,7 +2,7 @@
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Sidebar from "@/components/sidebar";
-
+import Sidebar2 from "@/components/sidebar2";
 import {useState, useEffect, useRef} from 'react'
 import localFont from "next/font/local";
 import {
@@ -50,12 +50,12 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <title>KUUL.club</title>
-        <body className="bg-black text-white">
+        <body className={`bg-black text-white ${sidebar ? "overflow-hidden" : ""}`}>
           <Header buttons={buttons} handleSidebar={handleSidebar} sidebarState={sidebar}/>
           {children}
 
           <div ref={sideBarRef} className="absolute top-0 left-0">
-            {sidebar && <Sidebar buttons={buttons} handleLinkClick={handleLinkClick} sidebarState={sidebar}/>}
+            <Sidebar2 buttons={buttons} handleLinkClick={handleLinkClick} sidebarState={sidebar}/>
           </div>
           <Footer/>
         </body>
