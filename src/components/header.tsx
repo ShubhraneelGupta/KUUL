@@ -23,7 +23,7 @@ export default function Header({ buttons, handleSidebar, sidebarState }: HeaderP
 	transition={{
 	  delay: 1.25
 	}}
-	className="z-10 fixed top-0 w-screen">
+	className="z-10 fixed top-0 w-screen backdrop-blur">
 	  <div className="flex justify-between items-center p-3">
 		<Logo />
 		<div className='flex items-center justify-center'>

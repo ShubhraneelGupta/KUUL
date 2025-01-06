@@ -1,7 +1,6 @@
 'use client'
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import Sidebar from "@/components/sidebar";
 import Sidebar2 from "@/components/sidebar2";
 import {useState, useEffect, useRef} from 'react'
 import localFont from "next/font/local";
