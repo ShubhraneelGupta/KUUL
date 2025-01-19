@@ -5,6 +5,7 @@ import Cross from './cross';
 import UserButtonMod from '@/components/userButtonMod';
 import {motion} from 'motion/react'
 
+
 interface HeaderProps {
   buttons: ReadonlyArray<string>;
   handleSidebar: () => void; 
@@ -27,6 +28,9 @@ export default function Header({ buttons, handleSidebar, sidebarState }: HeaderP
 	  <div className="flex justify-between items-center p-3">
 		<Logo />
 		<div className='flex items-center justify-center'>
+			<div className='p-3'>
+				List your Event
+			</div>
 			<UserButtonMod />
 			<div>
 			  {!sidebarState ? <Hamburger handleSidebar={handleSidebar}/> : <Cross handleSidebar={handleSidebar}/>}

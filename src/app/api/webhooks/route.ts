@@ -1,10 +1,11 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
-import {PrismaClient} from '@prisma/client'
+import {Prisma, PrismaClient} from '@prisma/client'
 
 export async function POST(req: Request) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET
+  const prisma = new PrismaClient()
 
   if (!SIGNING_SECRET) {
     throw new Error('Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local')
@@ -51,7 +52,8 @@ export async function POST(req: Request) {
   const eventType = evt.type
 
   if (eventType === 'user.created') {
-    console.log(evt.data);
+    const {id, email_addresses} = evt.data;
+    console.log(`\n\nid: ${id}\nemail: ${email_addresses[0].email_address}\n\n`);
   }
 
   return new Response('Webhook received', { status: 200 })
