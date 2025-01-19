@@ -10,6 +10,7 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			'kuul-green': '#9ACD32',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

@@ -41,7 +41,7 @@ export default function Sidebar2({ buttons, handleLinkClick, sidebarState }: Sid
                         <MotionLink
                             key={key}
                             onClick={handleLinkClick}
-                            href={button === 'Home' ? '/' : `${button.toLowerCase().split(' ').join('')}`}
+                            href={button === 'Home' ? '/' : `${button.toLowerCase().split(' ').join('-')}`}
                             initial={{ opacity: 0 }}
                             animate={{
                                 opacity: 1,
