@@ -1,5 +1,8 @@
 import UserButtonSVG from '@/components/userButtonSVG';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, UserButton} from '@clerk/nextjs';
+import Link from 'next/link';
+
+  
 
 export default function UserButtonMod() {
     return <div>
@@ -8,19 +11,19 @@ export default function UserButtonMod() {
                 <UserButton 
                     appearance={{
                         elements:{
-                            userButtonBox: "w-14 h-14",
-                            userButtonAvatarBox: "w-14 h-14"      
+                            userButtonBox: "w-8 h-8",
+                            userButtonAvatarBox: "w-8 h-8"      
                         }
                     }}
                 />
             </div>
         </SignedIn>
         <SignedOut>
-            <SignInButton>
-                <button>
+                <Link href={'/sign-in'}>
                     <UserButtonSVG/>
-                </button>
-            </SignInButton>
+                </Link>
         </SignedOut>
+        
+
     </div>
 }

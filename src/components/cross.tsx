@@ -5,10 +5,10 @@ interface SidebarProps {
 export default function Cross({handleSidebar}:SidebarProps){
     return <div 
     onClick={handleSidebar}
-    className="cursor-pointer h-full flex items-center p-4 bg-[#9acd32] rounded-full">
+    className="cursor-pointer h-full flex items-center p-2 bg-[#9acd32] rounded-full">
         <svg fill="#000000" 
-        height="30px" 
-        width="30px" 
+        height="20px" 
+        width="20px" 
         version="1.1" 
         id="Capa_1" 
         xmlns="http://www.w3.org/2000/svg"  

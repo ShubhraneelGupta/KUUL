@@ -4,7 +4,7 @@ import React from 'react';
 import Cross from './cross';
 import UserButtonMod from '@/components/userButtonMod';
 import {motion} from 'motion/react'
-
+import Link from 'next/link';
 
 interface HeaderProps {
   buttons: ReadonlyArray<string>;
@@ -29,7 +29,7 @@ export default function Header({ buttons, handleSidebar, sidebarState }: HeaderP
 		<Logo />
 		<div className='flex items-center justify-center'>
 			<div className='p-3'>
-				List your Event
+				<Link href={'/buisness'}>List your Event</Link>
 			</div>
 			<UserButtonMod />
 			<div>

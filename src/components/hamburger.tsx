@@ -8,7 +8,7 @@ export default function Hamburger({ handleSidebar }: HamburgerProps) {
   return (
     <div
       onClick={handleSidebar}
-      className="h-full flex justify-center items-center cursor-pointer p-4 bg-[#9acd32] rounded-full"
+      className="h-full flex justify-center items-center cursor-pointer p-2 bg-[#9acd32] rounded-full"
     >
       <svg
         width="20px"
