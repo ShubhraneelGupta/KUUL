@@ -1,18 +1,11 @@
+'use client'
 import Logo from '@/components/Logo/Logo';
-import Hamburger from '@/components/hamburger';
 import React from 'react';
-import Cross from './cross';
 import UserButtonMod from '@/components/userButtonMod';
 import {motion} from 'motion/react'
 import Link from 'next/link';
 
-interface HeaderProps {
-  buttons: ReadonlyArray<string>;
-  handleSidebar: () => void; 
-  sidebarState: boolean
-}
-
-export default function Header({ buttons, handleSidebar, sidebarState }: HeaderProps) {
+export default function Header() {
   return (
 	<motion.div 
 	initial={{
@@ -32,9 +25,6 @@ export default function Header({ buttons, handleSidebar, sidebarState }: HeaderP
 				<Link href={'/buisness'}>List your Event</Link>
 			</div>
 			<UserButtonMod />
-			<div>
-			  {!sidebarState ? <Hamburger handleSidebar={handleSidebar}/> : <Cross handleSidebar={handleSidebar}/>}
-			</div>
 		</div>
 	  </div>
 	</motion.div>

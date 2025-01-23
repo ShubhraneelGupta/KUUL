@@ -52,8 +52,12 @@ export async function POST(req: Request) {
   const eventType = evt.type
 
   if (eventType === 'user.created') {
-    const {id, email_addresses} = evt.data;
-    console.log(`\n\nid: ${id}\nemail: ${email_addresses[0].email_address}\n\n`);
+    const {created_at, id, first_name, last_name, email_addresses, phone_numbers} = evt.data
+    const email_address = email_addresses[0].email_address
+    const phone_number = phone_numbers[0].phone_number
+
+    console.log(`\nCreated at: ${created_at}\nid: ${id}\nName: ${first_name+' '+last_name}
+      \nEmail: ${email_address}\nPhone Number: ${phone_number}\n`);
   }
 
   return new Response('Webhook received', { status: 200 })

@@ -1,7 +1,6 @@
 import UserButtonSVG from '@/components/userButtonSVG';
 import { SignedIn, SignedOut, UserButton} from '@clerk/nextjs';
 import Link from 'next/link';
-
   
 
 export default function UserButtonMod() {

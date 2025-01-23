@@ -1,9 +1,5 @@
-'use client'
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import Sidebar2 from "@/components/sidebar2";
-import {useState, useEffect, useRef} from 'react'
-import localFont from "next/font/local";
 import {
   ClerkProvider,
 } from '@clerk/nextjs'
@@ -15,47 +11,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [sidebar, setSidebar] = useState(false)
-  const sideBarRef = useRef<HTMLDivElement>(null) 
-
-  const handleClickOutsideSidebar = (event: MouseEvent) => {
-	if (
-	  sidebar && 
-	  sideBarRef.current && 
-	  !sideBarRef.current.contains(event.target as Node) 
-	) {
-	  setSidebar(false) 
-	}
-  }
-
-  const handleSidebar = () => {
-	setSidebar(!sidebar)
-  }
-
-  const handleLinkClick = () => {
-	setSidebar(false) 
-  }
-
-  const buttons = ['Home', 'Events', 'Business', 'About Us', 'Sign Up']
-
-  useEffect(() => {
-	document.addEventListener('mousedown', handleClickOutsideSidebar)
-	return () => {
-	  document.removeEventListener('mousedown', handleClickOutsideSidebar)
-	}
-  }, [sidebar])
-
   return (
 	<ClerkProvider>
 	  <html lang="en">
 		<title>KUUL.club</title>
-		<body className={`bg-black text-white ${sidebar ? "overflow-hidden" : ""}`}>
-			<Header buttons={buttons} handleSidebar={handleSidebar} sidebarState={sidebar}/>
+		<body className={`bg-black text-white`}>
+			<Header/>
 			{children}
-
-			<div ref={sideBarRef} className="absolute top-0 left-0">
-				<Sidebar2 buttons={buttons} handleLinkClick={handleLinkClick} sidebarState={sidebar}/>
-			</div>
 			<Footer/>
 		</body>
 	  </html>

@@ -45,7 +45,7 @@ const Home = () => {
 
       {/* Text Content */}
       <div className="flex flex-col p-24 justify-center h-screen text-9xl
-      max-sm:text-7xl max-sm:p-4
+      max-sm:text-7xl max-sm:p-4 text-white
       ">
         <motion.div
         initial={{
