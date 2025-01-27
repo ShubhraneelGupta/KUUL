@@ -1,11 +1,12 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
-import {Prisma, PrismaClient} from '@prisma/client'
+import { db } from '@/db/index'
+import * as schema from '@/db/schema'
+
 
 export async function POST(req: Request) {
-  const SIGNING_SECRET = process.env.SIGNING_SECRET
-  const prisma = new PrismaClient()
+  const SIGNING_SECRET = process.env.SIGNING_SECRET  
 
   if (!SIGNING_SECRET) {
     throw new Error('Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local')
@@ -52,13 +53,34 @@ export async function POST(req: Request) {
   const eventType = evt.type
 
   if (eventType === 'user.created') {
-    const {created_at, id, first_name, last_name, email_addresses, phone_numbers} = evt.data
-    const email_address = email_addresses[0].email_address
-    const phone_number = phone_numbers[0].phone_number
+    let { 
+        id, 
+        first_name, 
+        last_name, 
+        email_addresses, 
+        phone_numbers 
+    } = evt.data;
+    if(first_name == null) first_name = 'none';
 
-    console.log(`\nCreated at: ${created_at}\nid: ${id}\nName: ${first_name+' '+last_name}
-      \nEmail: ${email_address}\nPhone Number: ${phone_number}\n`);
-  }
+    
+    // Validate required fields first
+    if (!id || typeof id !== 'string') {
+        throw new Error('Invalid user ID');
+    }
+
+    const email = email_addresses[0]?.email_address;
+    if (!email) {
+        throw new Error('No email address provided');
+    }
+
+    await db.insert(schema.users).values({
+        id: id,
+        firstName: first_name,
+        lastName: last_name, 
+        email: email,
+        phone: phone_numbers[0]?.phone_number, 
+    });
+}
 
   return new Response('Webhook received', { status: 200 })
 }
