@@ -2,12 +2,13 @@ import UserButtonSVG from '@/components/userButtonSVG';
 import MenuButton from '@/components/menuButton';
 import { SignedIn, SignedOut, UserButton} from '@clerk/nextjs';
 import Link from 'next/link';
-  
+import { usePathname } from 'next/navigation';
 
 export default function UserButtonMod() {
+    const pathName = usePathname();
     return <div>
         <SignedIn>
-            <div className='p-1 flex items-center border-2 rounded-full'>
+            <div className={`p-1 flex items-center border-2 rounded-full hover:border-dashed border-kuul-green ${pathName == '/profile' ? 'border-dashed' : ''}`}>
                 <UserButton 
                     appearance={{
                         elements:{
@@ -17,14 +18,19 @@ export default function UserButtonMod() {
                     }}
                 />
                 <div className='flex flex-col items-center justify-center pl-2'>
-                    <MenuButton/>
+                    <Link href={'/profile'}><MenuButton/></Link>
                 </div>
             </div>
         </SignedIn>
         <SignedOut>
+            <div className={`p-1 flex items-center border-2 rounded-full hover:border-dashed border-kuul-green ${pathName == '/profile' ? 'border-dashed' : ''}`}>
                 <Link href={'/sign-in'}>
                     <UserButtonSVG/>
                 </Link>
+                <div className='flex flex-col items-center justify-center pl-2'>
+                    <Link href={'/profile'}><MenuButton/></Link>
+                </div>
+            </div>
         </SignedOut>
         
 

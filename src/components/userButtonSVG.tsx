@@ -1,5 +1,5 @@
 export default function UserButtonSVG() {
-    return <div className="flex justify-center items-center backdrop-blur bg-black bg-opacity-50 border-2 p-2 rounded-full mr-3">
+    return <div className="flex justify-center items-center backdrop-blur bg-black bg-opacity-50 p-2 rounded-full">
     <svg 
         height="20px" 
         width="20px" 

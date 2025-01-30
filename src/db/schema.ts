@@ -4,10 +4,11 @@ import { relations } from "drizzle-orm"
 //----------Users Schema-----------------
 export const users = table("users", {
     id: text("id").primaryKey(),
+    username: text("username").unique(),
     firstName: text("first_name").notNull(),
     lastName: text("last_name"),
-    email: text("email").notNull(),
-    phone: text("phone").unique(),
+    email: text("email").notNull().unique(),
+    phone: text("phone"),
     createdAt: timestamp("created_at").defaultNow(),
     deletedAt: timestamp("deleted_at")
 })
@@ -48,7 +49,7 @@ export const ticketsRelations = relations(tickets, ({one}) => ({
 export const artists = table("artists", {
     id: serial("id").primaryKey(),
     name: text("name").notNull().unique(),
-    userId: text("user_id").unique().references(() => users.id),
+    userId: text("user_id").references(() => users.id),
     details: text("details"),
     claimed: boolean("claimed").default(false),
     deletedAt: timestamp("deleted_at")

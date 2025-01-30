@@ -1,0 +1,1 @@
+ALTER TABLE "artists" DROP CONSTRAINT "artists_user_id_unique";

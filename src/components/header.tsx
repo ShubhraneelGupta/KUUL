@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 
 export default function Header() {
   const pathName = usePathname();
+  const discoverPattern = /^\/discover/;
   return (
 	<motion.div 
 	initial={{
@@ -20,15 +21,19 @@ export default function Header() {
 	  delay: 1.25
 	}}
 	className="z-10 fixed top-0 flex justify-center w-screen backdrop-blur">
-	  <div className="flex w-full justify-between items-center pr-24 pl-24 max-sm:p-4 m-2 max-sm:m-0">
+	  <div className="flex w-full justify-between items-center pr-16 pl-16 max-sm:p-4 m-2 max-sm:m-0">
 		<Logo />
 		<div className='flex items-center justify-center'>
-			<div className='p-2 m-2 border-2 rounded-xl hover:border-dashed border-kuul-green'>
-				<Link href={'/search'}>Discover</Link>
-			</div>
-			<div className={`p-2 m-2 border-2 rounded-xl hover:border-dashed border-kuul-green`}>
-				<Link href={'/business'}>List your Event</Link>
-			</div>
+			<Link href={'/discover/events'}>
+				<div className={`p-2 m-2 border-2 rounded-xl hover:border-dashed border-kuul-green ${discoverPattern.test(pathName) ? 'border-dashed' : ''}`}>
+					Discover
+				</div>
+			</Link>
+			<Link href={'/business'}>
+				<div className={`p-2 m-2 border-2 rounded-xl hover:border-dashed border-kuul-green ${pathName == '/business' ? 'border-dashed' : ''}`}>
+					List your event
+				</div>
+			</Link>
 			<div className='ml-2'>
 				<UserButtonMod />
 			</div>

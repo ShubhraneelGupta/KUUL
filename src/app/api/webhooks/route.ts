@@ -2,6 +2,7 @@ import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
 import { db } from '@/db/index'
+import { eq, sql } from 'drizzle-orm'
 import * as schema from '@/db/schema'
 
 
@@ -48,39 +49,105 @@ export async function POST(req: Request) {
     })
   }
 
-  // Do something with payload
-  // For this guide, log payload to console
   const eventType = evt.type
 
+
+  //user created or signed up
   if (eventType === 'user.created') {
     let { 
         id, 
         first_name, 
         last_name, 
         email_addresses, 
-        phone_numbers 
+        username
     } = evt.data;
     if(first_name == null) first_name = 'none';
 
     
-    // Validate required fields first
     if (!id || typeof id !== 'string') {
-        throw new Error('Invalid user ID');
+        return new Response('Invalid User', { status: 401});
     }
 
     const email = email_addresses[0]?.email_address;
     if (!email) {
-        throw new Error('No email address provided');
+        return new Response('Email Id not found', {status: 401})
     }
 
-    await db.insert(schema.users).values({
-        id: id,
-        firstName: first_name,
-        lastName: last_name, 
-        email: email,
-        phone: phone_numbers[0]?.phone_number, 
-    });
-}
+    const [userPresent] = await db.select({
+      field1: schema.users.id
+    }).from(schema.users).where(eq(schema.users.email, email))
+
+    if(!userPresent){
+      try{
+        await db.insert(schema.users).values({
+          id: id,
+          firstName: first_name,
+          lastName: last_name, 
+          email: email,
+          username: username
+        });
+  
+        return new Response('User Created', {status: 201});
+      }
+      catch(err){
+        return new Response('Failed to create User', {status: 500});
+      }
+    }
+
+    else {
+      try{
+        await db.update(schema.users)
+              .set({
+                firstName: first_name,
+                lastName: last_name,
+                email: email,
+                username: username,
+                deletedAt: null
+              }).where(eq(schema.users.email, email));
+
+        return new Response('User Created', {status: 201});
+      }catch(err){
+        return new Response('Failed to create User', {status: 500})
+      }
+    }
+  }
+
+
+  //User updated
+  if(eventType === 'user.updated'){
+    let { 
+        id, 
+        first_name, 
+        last_name, 
+        email_addresses, 
+        username
+      } = evt.data;
+
+      const email = email_addresses[0].email_address;
+      try{
+        await db.update(schema.users)
+                .set({
+                  firstName: String(first_name),
+                  lastName: last_name, 
+                  email: email,
+                  username: username
+                }).where(eq(schema.users.id, id))
+
+        return new Response("User Updated", {status: 201})
+      }catch(err){
+        return new Response("Failed to update the user", {status: 500})
+      }
+  }
+
+
+  //user Deleted
+  if(eventType === 'user.deleted'){
+    const {id} = evt.data;
+    await db.update(schema.users)
+            .set({deletedAt: sql`now()`})
+            .where(eq(schema.users.id, String(id)))
+  }
+
 
   return new Response('Webhook received', { status: 200 })
 }
